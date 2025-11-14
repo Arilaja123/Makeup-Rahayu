@@ -471,3 +471,53 @@ footer {
 #jamWIB:hover {
   box-shadow: 0 0 18px rgba(255, 255, 255, 0.3);
 }
+
+/* === LOKASI / PETA === */
+#lokasi {
+  margin-top: 60px;
+  text-align: center;
+}
+
+#lokasi h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  color: var(--accent-dark);
+  margin-bottom: 12px;
+}
+
+.lokasi-desc {
+  color: var(--muted);
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.map-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.map-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+}
+
+.map-card iframe {
+  width: 100%;
+  height: 380px;
+  border: none;
+  border-radius: 18px;
+}
+
+/* Responsif mobile */
+@media (max-width: 768px) {
+  .map-card iframe {
+    height: 300px;
+  }
+}
+
+body {
+  min-width: 320px;
+}

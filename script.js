@@ -34,33 +34,49 @@ if (menuToggle && navMenu) {
 }
 
 
-// === Popup Selamat Datang ===
+// === Popup Selamat Datang (dengan kontrol sessionStorage) ===
 window.addEventListener('load', () => {
   const popup = document.getElementById('popup');
-  if (popup) {
-    popup.style.display = 'flex';
+  const tutupPopupBtn = document.getElementById('tutupPopup');
+
+  if (popup && !sessionStorage.getItem('popupShown')) {
+    setTimeout(() => {
+      popup.style.display = 'flex';
+      sessionStorage.setItem('popupShown', 'true');
+    }, 500); // delay biar muncul halus
+  }
+
+  if (tutupPopupBtn) {
+    tutupPopupBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
   }
 });
 
-const tutupPopupBtn = document.getElementById('tutupPopup');
-if (tutupPopupBtn) {
-  tutupPopupBtn.addEventListener('click', () => {
-    const popup = document.getElementById('popup');
-    if (popup) {
-      popup.style.display = 'none';
-    }
-  });
+
+// === Auto Refresh Aman 1x per Sesi (hindari loop reload) ===
+if (!sessionStorage.getItem('refreshedOnce')) {
+  sessionStorage.setItem('refreshedOnce', 'true');
+  window.location.reload();
 }
+
 
 // === Lihat Lebih Banyak (Galeri) ===
 const btnShowMore = document.getElementById('showMore');
 const gallery = document.querySelector('.gallery');
 
 if (btnShowMore && gallery) {
+  let isAnimating = false;
+
   btnShowMore.addEventListener('click', () => {
+    if (isAnimating) return;
+    isAnimating = true;
+
     gallery.classList.toggle('show-all');
     btnShowMore.textContent = gallery.classList.contains('show-all')
       ? 'Tampilkan Lebih Sedikit'
       : 'Lihat Lebih Banyak';
+
+    setTimeout(() => (isAnimating = false), 400);
   });
 }
